@@ -138,11 +138,11 @@ export default function VidstackPlayer({ movieId, episode, title }: VidstackPlay
         .player-container {
           width: 100%;
           aspect-ratio: 16/9;
-          max-height: 70vh;
           border-radius: 16px;
           overflow: hidden;
           background: #000;
           box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+          position: relative;
         }
       `}</style>
       
@@ -151,6 +151,24 @@ export default function VidstackPlayer({ movieId, episode, title }: VidstackPlay
         .player-container .media-player {
           width: 100%;
           height: 100%;
+        }
+        
+        /* Fix for Safari/WebKit - ensure controls are visible */
+        .player-container .media-player [data-part="controls"] {
+          z-index: 10 !important;
+          pointer-events: auto !important;
+        }
+        
+        /* Force controls layer to be interactive */
+        .player-container .media-player .vds-controls {
+          pointer-events: auto !important;
+          z-index: 20 !important;
+        }
+        
+        /* Ensure control buttons are clickable */
+        .player-container .media-player [data-part="controls"] button,
+        .player-container .media-player [data-part="controls"] [role="button"] {
+          pointer-events: auto !important;
         }
         
         /* Custom red play button */
