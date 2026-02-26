@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Search, Bookmark, Heart, X, Menu, History, LogOut } from "lucide-react";
+import { Search, Bookmark, Heart, X, Menu, History } from "lucide-react";
 import { useSearch } from "@/app/comps/search/SearchProvider";
-import { useAuth } from "@/app/hooks/useAuth";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -15,15 +13,8 @@ const navLinks = [
 
 export const Navbar = () => {
   const { openSearch } = useSearch();
-  const { logout } = useAuth();
-  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const handleLogout = () => {
-    logout();
-    router.push('/');
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,16 +107,6 @@ export const Navbar = () => {
                 </Link>
               </div>
 
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="hidden md:flex p-2 text-white/80 hover:text-[#E50914] hover:bg-white/10 rounded-md transition-colors"
-                aria-label="Logout"
-                title="Logout"
-              >
-                <LogOut className="h-5 w-5" />
-              </button>
-
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
@@ -196,17 +177,6 @@ export const Navbar = () => {
               <Bookmark className="h-5 w-5" />
               Bookmarked
             </Link>
-            <div className="border-t border-white/10 my-2" />
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                handleLogout();
-              }}
-              className="px-6 py-4 text-lg font-medium text-white/90 hover:text-[#E50914] hover:bg-white/10 transition-colors flex items-center gap-3 w-full text-left"
-            >
-              <LogOut className="h-5 w-5" />
-              Logout
-            </button>
           </nav>
         </div>
       </div>
